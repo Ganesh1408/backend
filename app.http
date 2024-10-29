@@ -17,7 +17,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikdhb
 
 ###
 
-GET http://localhost:3000/transactions/11
+GET http://localhost:3000/transactions/40
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdhbmVzaHMiLCJpYXQiOjE3MzAxMjU2NTh9.jZ4X84J_iVNYjzUa-lE7O_Lkwq3g5n799bc6HsuAzDo
 
 ###

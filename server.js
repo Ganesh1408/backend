@@ -83,9 +83,26 @@ app.get("/transactions", authenticateToken, async (request, response) => {
 // GET transaction by ID
 app.get("/transactions/:id", authenticateToken, async (request, response) => {
   const { id } = request.params;
-  const getUniqueTransaction = `SELECT * FROM transactions WHERE id = ${id};`;
-  const transaction = await db.get(getUniqueTransaction);
-  response.send(transaction);
+
+  try{
+    const transaction = await db.get(
+      `SELECT * FROM transactions WHERE id = ?`,
+      [id]
+    );
+    if(!transaction){
+      return response.status(404).send({error:"Transaction not available"});
+    }
+  
+  const getUniqueTransaction = `SELECT * FROM transactions WHERE id = ${id};`
+  const uniqueTransaction = await db.get(getUniqueTransaction);
+  response.send(uniqueTransaction)
+} catch (error) {
+  console.error(error);
+  // Send a 500 response for any server error
+  response
+    .status(500)
+    .send({ error: "An error occurred while updating the transaction" });
+}
 });
 
 // PUT (update) transaction by ID
@@ -212,6 +229,7 @@ app.post("/login/", async (request, response) => {
         };
         const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
         console.log(jwtToken)
+        
         response.send({ jwtToken });
 
   
